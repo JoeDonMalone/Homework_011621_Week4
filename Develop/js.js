@@ -1,9 +1,12 @@
 // Variables
 var correctBool; //This can be defined based off of user entry;
-var startQuizButton; 
+var startQuizButton = document.querySelector('.start-button'); 
 var submitButton
 var clearHighScore
 var timerEl = document.querySelector(".countdown");
+var wins = 0;
+var losses = 0;
+var words = [];//Maybe for answers?
 var questionAnswers = {
     'Question1': 'answer1',
     'Question2': 'answer2',
@@ -17,24 +20,46 @@ var questionAnswers = {
     'Question10': 'answer10',
     'Question11': 'answer11',
 }
-
 // Functions
+startQuizButton.addEventListener('click', function(event) {
+    timerFunction();
+    console.log(this.textContent);
+    startQuizButton.disabled = true;
+    startQuizButton.style.visibility = "hidden"
+    // document.getElementById("myBtn").disabled = true;
+
+});
+
+var timeLeft = 11;
 function timerFunction() {
-    var timeLeft = 5;
     var timerInterval = setInterval(function() {
-    timerEl.textContent = "Seconds Remaining: " + timeLeft;
-    timeLeft--;
-    console.log(timeLeft);
-    
+        timeLeft--;
+        timerEl.textContent = "Seconds Remaining: " + timeLeft;
+        console.log(timeLeft);
+
         if (timeLeft === 0) {
-            timerEl.textContent = "";
+            timerEl.textContent = "Seconds Remaining: "+ timeLeft;
+            startQuizButton.textContent = 'RESET';
             clearInterval(timerInterval);
-            timerFunction();
+            startQuizButton.disabled = false;
+            startQuizButton.style.visibility = "visible"
+            this.startQuizButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                timeLeft = 11;
+                timerInterval;
+            })
         }
     }, 1000);
 };
 
-
-timerFunction();
+for (var [key, value] of Object.entries(questionAnswers)) {
+    if(value.includes('answer1')) {
+    console.log('Well Done');
+    console.log(key,':', value);
+    } else {
+        console.log('not here')
+    }
+};
+// timerFunction();
 
 // Script
