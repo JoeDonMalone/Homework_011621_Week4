@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./Develop/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="./Develop/style.css">
   <title>Document</title>
 </head>
 <body>
@@ -12,12 +12,21 @@
     <div class = 'game-title'></div>
   </header>
   <div class='container-border'>
-    <button type="button" class="btn btn-secondary start-button">Start Game!</button>
-    <div class="countdown"></div>
-  </div>
-  <div>
+    <!-- <button type="button" class="btn btn-secondary start-button">Start Game!</button> -->
     
   </div>
+  <div class="jumbotron">
+    <h1 class="text-center">
+      <strong>JavaScript Quiz</strong>
+      <div class="countdown"></div>
+    </h1>
+    <hr>
+    <div id="gameControls" class="text-center">
+      <button type="button" class="btn btn-success start-button">Start Game!</button>
+        <!-- <span class="fa fa-music"></span> Play Theme!</button> -->
+      <button class="btn btn-dark btn-xs pause-button">
+        <span class="fa fa-pause"></span> Pause Song</button>
+    </div>
   
 
 

@@ -18,17 +18,28 @@ var questionAnswers = {
     'Question8': 'answer8',
     'Question9': 'answer8',
     'Question10': 'answer10',
-    'Question11': 'answer11',
-}
+    'Question11': 'answer11'
+};
+var answersOnly = ['answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1']
 // Functions
 startQuizButton.addEventListener('click', function(event) {
     timerFunction();
     console.log(this.textContent);
     startQuizButton.disabled = true;
     startQuizButton.style.visibility = "hidden"
-    // document.getElementById("myBtn").disabled = true;
+    startQuizButton.className = "btn btn-light start-button";
 
 });
+
+
+// function generatQuestions () {
+    // for(var i = 0; i<questionAnswers.length(); i++)
+            // key.answers[i] i
+// {    //Loop through our questionobject
+//     //select 1 question:answer
+//     //select 3 items from our answers that are incorrect
+//      add false questions to some button context
+// }
 
 var timeLeft = 11;
 function timerFunction() {
