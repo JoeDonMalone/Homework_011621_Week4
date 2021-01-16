@@ -6,7 +6,6 @@ var clearHighScore
 var timerEl = document.querySelector(".countdown");
 var wins = 0;
 var losses = 0;
-var words = [];//Maybe for answers?
 var questionAnswers = {
     'Question1': 'answer1',
     'Question2': 'answer2',
@@ -22,14 +21,24 @@ var questionAnswers = {
 };
 var answersOnly = ['answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1']
 // Functions
+function selectQuestionAnswer(){
+    for(var i = 0; i<questionAnswers.lenth; i++)
+    console.log('hello');
+
+}
+
 startQuizButton.addEventListener('click', function(event) {
-    timerFunction();
+    // timerFunction();
     console.log(this.textContent);
     startQuizButton.disabled = true;
-    startQuizButton.style.visibility = "hidden"
+    startQuizButton.style.visibility = "hidden";
     startQuizButton.className = "btn btn-light start-button";
+    selectQuestionAnswer();
+    
 
 });
+
+
 
 
 // function generatQuestions () {
@@ -45,11 +54,11 @@ var timeLeft = 11;
 function timerFunction() {
     var timerInterval = setInterval(function() {
         timeLeft--;
-        timerEl.textContent = "Seconds Remaining: " + timeLeft;
+        timerEl.textContent = "Seconds Remaining:  " + timeLeft;
         console.log(timeLeft);
 
         if (timeLeft === 0) {
-            timerEl.textContent = "Seconds Remaining: "+ timeLeft;
+            timerEl.textContent = "Seconds Remaining:  "+ timeLeft;
             startQuizButton.textContent = 'RESET';
             clearInterval(timerInterval);
             startQuizButton.disabled = false;
@@ -63,14 +72,14 @@ function timerFunction() {
     }, 1000);
 };
 
-for (var [key, value] of Object.entries(questionAnswers)) {
-    if(value.includes('answer1')) {
-    console.log('Well Done');
-    console.log(key,':', value);
-    } else {
-        console.log('not here')
-    }
-};
+// for (var [key, value] of Object.entries(questionAnswers)) {
+//     if(value.includes('answer1')) {
+//     console.log('Well Done');
+//     console.log(key,':', value);
+//     } else {
+//         console.log('not here')
+//     }
+// };
 // timerFunction();
 
 // Script
