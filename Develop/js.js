@@ -1,11 +1,19 @@
-// Variables
-var correctBool; //This can be defined based off of user entry;
+
+// Buttons
 var startQuizButton = document.querySelector('.start-button'); 
-var submitButton
-var clearHighScore
+var answerBtn_1 = document.querySelector('#answerBtn-1');
+var answerBtn_2 = document.querySelector('#answerBtn-2');
+var answerBtn_3 = document.querySelector('#answerBtn-3');
+var answerBtn_4 = document.querySelector('#answerBtn-4')
+
+// content Variables
+var genQuestion = document.querySelector('#generated-question');
+
+var genQuestion = document.querySelector('#generated-question')
 var timerEl = document.querySelector(".countdown");
-var wins = 0;
-var losses = 0;
+
+// var clearHighScore
+var score = 0;
 var questionAnswers = {
     'Question1': 'answer1',
     'Question2': 'answer2',
@@ -19,26 +27,30 @@ var questionAnswers = {
     'Question10': 'answer10',
     'Question11': 'answer11'
 };
+
+
+// Function Variables
 var answersOnly = ['answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1']
+var timeLeft = 11;
+var correctBool; //This can be defined based off of user entry;
+
+
 // Functions
-function selectQuestionAnswer(){
-    for(var i = 0; i<questionAnswers.lenth; i++)
-    console.log('hello');
-
-}
-
 startQuizButton.addEventListener('click', function(event) {
-    // timerFunction();
+    timerFunction();
     console.log(this.textContent);
     startQuizButton.disabled = true;
     startQuizButton.style.visibility = "hidden";
     startQuizButton.className = "btn btn-light start-button";
-    selectQuestionAnswer();
-    
+    getQuestion();
 
 });
 
-
+function getQuestion() {
+    var questions = Object.keys(questionAnswers);
+    var randomIndex = Math.floor(Math.random() * 11)
+    genQuestion.innerHTML = questions[randomIndex]
+}
 
 
 // function generatQuestions () {
@@ -50,7 +62,7 @@ startQuizButton.addEventListener('click', function(event) {
 //      add false questions to some button context
 // }
 
-var timeLeft = 11;
+
 function timerFunction() {
     var timerInterval = setInterval(function() {
         timeLeft--;
