@@ -9,13 +9,10 @@ var answerBtn_4 = document.querySelector('#answerBtn-4')
 var genQuestion = document.querySelector('#generated-question');
 var genQuestion = document.querySelector('#generated-question')
 var timerEl = document.querySelector(".countdown");
-
-
 var score = 0;
 
 
 // Function Variables
-var answersOnly = ['answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1','answer1']
 var timeLeft = 11;
 var correctBool; //This can be defined based off of user entry;
 var questionAnswers = {
@@ -27,7 +24,7 @@ var questionAnswers = {
     'Question6': 'answer6',
     'Question7': 'answer7',
     'Question8': 'answer8',
-    'Question9': 'answer8',
+    'Question9': 'answer9',
     'Question10': 'answer10',
     'Question11': 'answer11'
 };
@@ -59,6 +56,7 @@ function startGame (){
     answerBtn_4.style.visibility = "visible";
     startQuizButton.disabled = true;
     getQuestion();
+    assignAnswers();
 }
 
 function timerFunction() {
@@ -84,19 +82,45 @@ function timerFunction() {
 
 function getQuestion() {
     var questions = Object.keys(questionAnswers);
-    var randomIndex = Math.floor(Math.random() * 11);
+    var randomIndex = Math.floor(Math.random() * questionAnswers.length);
     genQuestion.textContent = questions[randomIndex];
     var genQuestionKey = genQuestion.textContent;
-    getAnswer(genQuestionKey);
+    console.log(questionAnswers);
+    return getAnswer(genQuestionKey);
+    
 };
 
 
 function getAnswer (genQuestionKey){
     var correctAnswer = questionAnswers[genQuestionKey];
+    delete questionAnswers.genQuestionKey;
+    console.log(questionAnswers);
+    return correctAnswer
+
     // console.log(correctAnswer)
 };
 
 function assignAnswers() {
+    var answers = ['answer1','answer2','answer3','answer4','answer5','answer6','answer7','answer8','answer9','answer10','answer11']
+    var answerButtons = [answerBtn_1, answerBtn_2, answerBtn_3, answerBtn_4]
+    for(var i = 0;i<4;i++) {
+        // console.log("Button List length: ", answerButtons.length)
+        // console.log("Answer List length: ", answers.length)
+        randomButtonIndex = Math.floor(Math.random() * answerButtons.length);
+        randomAnswerIndex = Math.floor(Math.random() * answers.length);
+        buttonAssignment =  answerButtons[randomButtonIndex];
+        buttonToRemove = answerButtons.indexOf(buttonAssignment);
+        // console.log("Button Assignment: ", buttonAssignment, "Button to remove: ", buttonToRemove);
+        answerButtons.splice(buttonToRemove,1);
+        // console.log(answerButtons)
+        answerAssignment = answers[randomAnswerIndex];
+        answerToRemove = answers.indexOf(answerAssignment);
+        // console.log("Answer Assignment: ", answerAssignment, "Answer to remove: ", answerToRemove);
+        answers.splice(answerToRemove,1);
+        // console.log(answers);
+        buttonAssignment.textContent = answerAssignment;
+    }
+    
 
 };
 
