@@ -7,25 +7,25 @@ var answerBtn_4 = document.querySelector('#answerBtn-4');
 
 answerBtn_1.addEventListener('click', function(event) {
     if(!(event.target.type === 'button')); {
-        console.log(event.target.textContent);
+        answerFound(event);
     }
 });
 
 answerBtn_2.addEventListener('click', function(event) {
     if(!(event.target.type === 'button')); {
-        console.log(event.target.textContent);
+        answerFound(event);
     }
 });
 
 answerBtn_3.addEventListener('click', function(event) {
     if(!(event.target.type === 'button')); {
-        console.log(event.target.textContent);
+        answerFound(event);
     }
 });
 
 answerBtn_4.addEventListener('click', function(event) {
     if(!(event.target.type === 'button')); {
-        console.log(event.target.textContent);
+        answerFound(event);
     }
 });
 
@@ -39,7 +39,6 @@ var score = 0;
 // Functions
 
 var timeLeft = 11;
-var correctBool; //This can be defined based off of user entry;
 var  questionAnswers = {
     'Question1': 'answer1',
     'Question2': 'answer2',
@@ -56,7 +55,7 @@ var  questionAnswers = {
 
 startQuizButton.addEventListener('click', function(event) {
     timerFunction();
-    console.log(this.textContent);
+    // console.log(this.textContent);
     startGame()
 
 });
@@ -69,16 +68,8 @@ function setGame (){
     answerBtn_3.style.visibility = "hidden";
     answerBtn_4.style.visibility = "hidden";
 }
-
+// Initialize global Variables  & Get Questions and Answers assigned to buttons
 function startGame (){
-    startQuizButton.style.visibility = "hidden";
-    startQuizButton.className = "btn btn-light start-button";
-    genQuestion.style.visibility ="visible";
-    answerBtn_1.style.visibility = "visible";
-    answerBtn_2.style.visibility = "visible";
-    answerBtn_3.style.visibility = "visible";
-    answerBtn_4.style.visibility = "visible";
-    startQuizButton.disabled = true;
     questionAnswers = {
         'Question1': 'answer1',
         'Question2': 'answer2',
@@ -91,17 +82,23 @@ function startGame (){
         'Question9': 'answer9',
         'Question10': 'answer10',
         'Question11': 'answer11'
-};
+    };
+    startQuizButton.style.visibility = "hidden";
+    startQuizButton.className = "btn btn-light start-button";
+    genQuestion.style.visibility ="visible";
+    answerBtn_1.style.visibility = "visible";
+    answerBtn_2.style.visibility = "visible";
+    answerBtn_3.style.visibility = "visible";
+    answerBtn_4.style.visibility = "visible";
+    startQuizButton.disabled = true;
     getQuestion();
-    assignAnswers();
+    // getAnswer();
 }
 
 function timerFunction() {
     var timerInterval = setInterval(function() {
         timeLeft--;
         timerEl.textContent = "Seconds Remaining:  " + timeLeft;
-        console.log(timeLeft);
-
         if (timeLeft === 0) {
             timerEl.textContent = "Seconds Remaining:  "+ timeLeft;
             startQuizButton.textContent = 'RESET';
@@ -121,50 +118,44 @@ function getQuestion() {
     var questions = Object.keys(questionAnswers);
     var randomIndex = Math.floor(Math.random() * 11);
     genQuestion.textContent = questions[randomIndex];
-    var genQuestionKey = genQuestion.textContent;
-    console.log(genQuestionKey)
-    console.log(questionAnswers)
-    var correctAnswer = getAnswer(genQuestionKey);
-    console.log(correctAnswer)
+    // return getAnswer(genQuestionKey);
+    assignAnswers();
     
-};
-
-
-function getAnswer(genQuestionKey){
-    mutableQuestions = questionAnswers
-    var correctAnswer = questionAnswers[genQuestionKey];
-    console.log(delete mutableQuestions[genQuestionKey]);
-    return correctAnswer;
 };
 
 function assignAnswers() {
     var answers = ['answer1','answer2','answer3','answer4','answer5','answer6','answer7','answer8','answer9','answer10','answer11']
     var answerButtons = [answerBtn_1, answerBtn_2, answerBtn_3, answerBtn_4]
     for(var i = 0;i<4;i++) {
-        // console.log("Button List length: ", answerButtons.length)
-        // console.log("Answer List length: ", answers.length)
         randomButtonIndex = Math.floor(Math.random() * answerButtons.length);
         randomAnswerIndex = Math.floor(Math.random() * answers.length);
         buttonAssignment =  answerButtons[randomButtonIndex];
         buttonToRemove = answerButtons.indexOf(buttonAssignment);
-        // console.log("Button Assignment: ", buttonAssignment, "Button to remove: ", buttonToRemove);
         answerButtons.splice(buttonToRemove,1);
-        // console.log(answerButtons)
         answerAssignment = answers[randomAnswerIndex];
         answerToRemove = answers.indexOf(answerAssignment);
-        // console.log("Answer Assignment: ", answerAssignment, "Answer to remove: ", answerToRemove);
         answers.splice(answerToRemove,1);
-        // console.log(answers);
         buttonAssignment.textContent = answerAssignment;
-    }
+    };
     
 
 };
 
-function answerFound() {
+function getAnswer(){
+    var genQuestionKey = genQuestion.textContent;
+    var correctAnswer = questionAnswers[genQuestionKey];
+    // console.log('Question: ', genQuestionKey, 'Answer: ', correctAnswer)
+};
+
+
+
+function answerFound(event) {
+    var genQuestionKey = genQuestion.textContent;
+    var userSelection = event.target.textContent;
     for (var [key, value] of Object.entries(questionAnswers)) {
-        if(value.includes('answer1')) {
-        console.log(key,':', value);
+        if(value.includes(userSelection)) {
+            console.log('HERE IS THE ANSWER: ', key,':', value);
+            delete questionAnswers[genQuestionKey];
         } else {
             console.log('not here')
         }
