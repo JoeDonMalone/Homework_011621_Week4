@@ -29,7 +29,6 @@ answerBtn_4.addEventListener('click', function(event) {
     }
 });
 
-
 // content Variables
 var genQuestion = document.querySelector('#generated-question');
 var timerEl = document.querySelector(".countdown");
@@ -37,9 +36,11 @@ var score = 0;
 
 
 // Function Variables
+// Functions
+
 var timeLeft = 11;
 var correctBool; //This can be defined based off of user entry;
-var questionAnswers = {
+var  questionAnswers = {
     'Question1': 'answer1',
     'Question2': 'answer2',
     'Question3': 'answer3',
@@ -52,17 +53,13 @@ var questionAnswers = {
     'Question10': 'answer10',
     'Question11': 'answer11'
 };
-// var buttonElement = document.querySelector(".answer-button");
-// Functions
+
 startQuizButton.addEventListener('click', function(event) {
     timerFunction();
     console.log(this.textContent);
     startGame()
 
 });
-
-
-
 
 
 function setGame (){
@@ -82,6 +79,19 @@ function startGame (){
     answerBtn_3.style.visibility = "visible";
     answerBtn_4.style.visibility = "visible";
     startQuizButton.disabled = true;
+    questionAnswers = {
+        'Question1': 'answer1',
+        'Question2': 'answer2',
+        'Question3': 'answer3',
+        'Question4': 'answer4',
+        'Question5': 'answer5',
+        'Question6': 'answer6',
+        'Question7': 'answer7',
+        'Question8': 'answer8',
+        'Question9': 'answer9',
+        'Question10': 'answer10',
+        'Question11': 'answer11'
+};
     getQuestion();
     assignAnswers();
 }
@@ -100,7 +110,7 @@ function timerFunction() {
             startQuizButton.style.visibility = "visible"
             this.startQuizButton.addEventListener('click', function(event) {
                 event.preventDefault();
-                timeLeft = 11;
+                timeLeft = 5;
                 timerInterval;
             })
         }
@@ -112,21 +122,19 @@ function getQuestion() {
     var randomIndex = Math.floor(Math.random() * 11);
     genQuestion.textContent = questions[randomIndex];
     var genQuestionKey = genQuestion.textContent;
-    getAnswer(genQuestionKey);
+    console.log(genQuestionKey)
+    console.log(questionAnswers)
+    var correctAnswer = getAnswer(genQuestionKey);
+    console.log(correctAnswer)
     
 };
 
 
 function getAnswer(genQuestionKey){
-    questionsList = questionAnswers;
+    mutableQuestions = questionAnswers
     var correctAnswer = questionAnswers[genQuestionKey];
-    console.log(correctAnswer);
-    console.log(questionAnswers);
-    delete questionsList[genQuestionKey];
-    console.log(questionsList)
-    return correctAnswer
-
-    // console.log(correctAnswer)
+    console.log(delete mutableQuestions[genQuestionKey]);
+    return correctAnswer;
 };
 
 function assignAnswers() {
@@ -166,8 +174,9 @@ function answerFound() {
 
 
 // Function Calls 
- 
 setGame();
+
+
 
 
 
