@@ -3,11 +3,35 @@ var startQuizButton = document.querySelector('.start-button');
 var answerBtn_1 = document.querySelector('#answerBtn-1');
 var answerBtn_2 = document.querySelector('#answerBtn-2');
 var answerBtn_3 = document.querySelector('#answerBtn-3');
-var answerBtn_4 = document.querySelector('#answerBtn-4')
+var answerBtn_4 = document.querySelector('#answerBtn-4');
+
+answerBtn_1.addEventListener('click', function(event) {
+    if(!(event.target.type === 'button')); {
+        console.log(event.target.textContent);
+    }
+});
+
+answerBtn_2.addEventListener('click', function(event) {
+    if(!(event.target.type === 'button')); {
+        console.log(event.target.textContent);
+    }
+});
+
+answerBtn_3.addEventListener('click', function(event) {
+    if(!(event.target.type === 'button')); {
+        console.log(event.target.textContent);
+    }
+});
+
+answerBtn_4.addEventListener('click', function(event) {
+    if(!(event.target.type === 'button')); {
+        console.log(event.target.textContent);
+    }
+});
+
 
 // content Variables
 var genQuestion = document.querySelector('#generated-question');
-var genQuestion = document.querySelector('#generated-question')
 var timerEl = document.querySelector(".countdown");
 var score = 0;
 
@@ -28,15 +52,18 @@ var questionAnswers = {
     'Question10': 'answer10',
     'Question11': 'answer11'
 };
+// var buttonElement = document.querySelector(".answer-button");
 // Functions
-
-
 startQuizButton.addEventListener('click', function(event) {
     timerFunction();
     console.log(this.textContent);
     startGame()
 
 });
+
+
+
+
 
 function setGame (){
     genQuestion.style.visibility ="hidden"
@@ -82,19 +109,21 @@ function timerFunction() {
 
 function getQuestion() {
     var questions = Object.keys(questionAnswers);
-    var randomIndex = Math.floor(Math.random() * questionAnswers.length);
+    var randomIndex = Math.floor(Math.random() * 11);
     genQuestion.textContent = questions[randomIndex];
     var genQuestionKey = genQuestion.textContent;
-    console.log(questionAnswers);
-    return getAnswer(genQuestionKey);
+    getAnswer(genQuestionKey);
     
 };
 
 
-function getAnswer (genQuestionKey){
+function getAnswer(genQuestionKey){
+    questionsList = questionAnswers;
     var correctAnswer = questionAnswers[genQuestionKey];
-    delete questionAnswers.genQuestionKey;
+    console.log(correctAnswer);
     console.log(questionAnswers);
+    delete questionsList[genQuestionKey];
+    console.log(questionsList)
     return correctAnswer
 
     // console.log(correctAnswer)
