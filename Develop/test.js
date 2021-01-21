@@ -5,6 +5,7 @@ var answerBtn_2 = document.querySelector('#answerBtn-2');
 var answerBtn_3 = document.querySelector('#answerBtn-3');
 var answerBtn_4 = document.querySelector('#answerBtn-4');
 
+
 answerBtn_1.addEventListener('click', function(event) {
     if(!(event.target.type === 'button')); {
         answerFound(event);
@@ -97,18 +98,13 @@ function startGame (){
 }
 function countdown() {
     timeLeft--;
-    if (Math.sign(timeLeft === -1)){
-        return(timeLeft = 0);
-    } else {
-        return(timeLeft);
-    }
 }
 function timerFunction() {
     var timerInterval = setInterval(function() {
-        countdown(0);
+        countdown();
         timerEl.textContent = "Seconds Remaining:  " + timeLeft;
-        if (timeLeft === 0) {
-            timerEl.textContent = "Seconds Remaining:  "+ timeLeft;
+        if (timeLeft === 0 || Math.sign(timeLeft) == -1) {
+            timerEl.textContent = "Seconds Remaining:  "+ "0";
             startQuizButton.textContent = 'RESET';
             clearInterval(timerInterval);
             startQuizButton.disabled = false;
@@ -116,7 +112,7 @@ function timerFunction() {
             this.startQuizButton.addEventListener('click', function(event) {
                 timerInterval;
             })
-        }
+        } 
     }, 1000);
 };
 
