@@ -32,13 +32,14 @@ answerBtn_4.addEventListener('click', function(event) {
 // content Variables
 var genQuestion = document.querySelector('#generated-question');
 var timerEl = document.querySelector(".countdown");
+var scoreEl = document.querySelector(".score");
 var score = 0;
 
 
 // Function Variables
 // Functions
 
-var timeLeft = 11;
+var timeLeft = 60;
 var  questionAnswers = {
     'Question1': 'answer1',
     'Question2': 'answer2',
@@ -70,6 +71,7 @@ function setGame (){
 }
 // Initialize global Variables  & Get Questions and Answers assigned to buttons
 function startGame (){
+    score = 0
     questionAnswers = {
         'Question1': 'answer1',
         'Question2': 'answer2',
@@ -83,6 +85,7 @@ function startGame (){
         'Question10': 'answer10',
         'Question11': 'answer11'
     };
+    timeLeft = 60
     startQuizButton.style.visibility = "hidden";
     startQuizButton.className = "btn btn-light start-button";
     genQuestion.style.visibility ="visible";
@@ -107,7 +110,6 @@ function timerFunction() {
             startQuizButton.style.visibility = "visible"
             this.startQuizButton.addEventListener('click', function(event) {
                 event.preventDefault();
-                timeLeft = 5;
                 timerInterval;
             })
         }
@@ -118,7 +120,6 @@ function getQuestion() {
     var questions = Object.keys(questionAnswers);
     var randomIndex = Math.floor(Math.random() * 11);
     genQuestion.textContent = questions[randomIndex];
-    // return getAnswer(genQuestionKey);
     assignAnswers();
     
 };
@@ -137,29 +138,27 @@ function assignAnswers() {
         answers.splice(answerToRemove,1);
         buttonAssignment.textContent = answerAssignment;
     };
-    
-
 };
 
 function getAnswer(){
     var genQuestionKey = genQuestion.textContent;
     var correctAnswer = questionAnswers[genQuestionKey];
-    // console.log('Question: ', genQuestionKey, 'Answer: ', correctAnswer)
+    return correctAnswer
 };
-
-
 
 function answerFound(event) {
     var genQuestionKey = genQuestion.textContent;
-    var userSelection = event.target.textContent;
-    for (var [key, value] of Object.entries(questionAnswers)) {
-        if(value.includes(userSelection)) {
-            console.log('HERE IS THE ANSWER: ', key,':', value);
-            delete questionAnswers[genQuestionKey];
-        } else {
-            console.log('not here')
-        }
-    };
+    correctAnswer =  getAnswer();
+    if(event.target.textContent === questionAnswers[genQuestionKey]){
+        console.log('Yes');
+        score++;
+        scoreEl.textContent = "Score: "+ score;
+        delete questionAnswers[genQuestionKey]; 
+        getQuestion();
+    } else {console.log('no')
+        getQuestion();
+    }
+    
 };
 
 
@@ -169,6 +168,16 @@ setGame();
 
 
 
+    // for (var [key, value] of Object.entries(questionAnswers)) {
+    //     if(value.includes(correctAnswer)) {
+    //         // console.log(userSelection)
+    //         console.log('HERE IS THE ANSWER: ', key,':', value);
+    //         console.log(score)           
+    //         score++;
+
+    //         delete questionAnswers[genQuestionKey];
+    //     }
+    // };
 
 
 
