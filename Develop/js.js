@@ -30,12 +30,15 @@ answerBtn_4.addEventListener('click', function(event) {
     }
 });
 
+
 // content Variables
 var genQuestion = document.querySelector('#generated-question');
 var timerEl = document.querySelector(".countdown");
-var scoreEl = document.querySelector(".score");
+var scoreEl = document.querySelector("#score");
 var score = 0;
 var timeLeft = 60;
+var userNameInput = 'JDM'//prompt("Enter Your Initials")
+var userName =  document.querySelector('#user-name');
 
 // Function Variables
 var  questionAnswers = {
@@ -52,6 +55,36 @@ var  questionAnswers = {
     'Question11': 'answer11'
 };
 
+// On function call, write this object to the local storage
+function writeStats() {
+
+    // var userStats = JSON.parse(localStorage.getItem('userStats'));
+    var userStats = {
+        userName: userNameInput,
+        highScore: 0
+    };
+    // localStorage.setItem('userStats',JSON.stringify({'userName':'JDM', 'highScore':100}))
+    //Write stats only if User Name has changed, or if Score is higher than highest value
+    if((userStats['userName'] == userNameInput)){
+        console.log(score," ", userStats['highScore'], score > userStats['highScore'])
+        // localStorage.setItem('userStats', JSON.stringify(userStats))
+        // console.log('Sorry')
+    } else {
+        localStorage.setItem('userStats', JSON.stringify(userStats));
+        // alert("You've beaten your Highest Score! Well Done!");
+    }
+    // if(userStats['highScore']>score){
+    //     localStorage.setItem('userStats', JSON.stringify(userStats))
+    //     console.log('Sorry')
+    // } else {
+    //     localStorage.setItem('userStats', JSON.stringify(userStats));
+    //     alert("You've beaten your Highest Score! Well Done!");
+    // }
+
+    
+    //Alert user of New high score, if highest score yet
+
+}
 // Functions
 function keepScore() {
     score++;
@@ -68,7 +101,9 @@ startQuizButton.addEventListener('click', function(event) {
 
 
 function setGame (){
-    genQuestion.style.visibility ="hidden"
+    // userNameInput.style.visibility = "hidden";
+    userName.textContent = "User Name: " + userNameInput;
+    genQuestion.style.visibility ="hidden";
     answerBtn_1.style.visibility = "hidden";
     answerBtn_2.style.visibility = "hidden";
     answerBtn_3.style.visibility = "hidden";
@@ -90,6 +125,7 @@ function startGame (){
         'Question11': 'answer11'
     };
     timeLeft = 60
+    userName.style.visibility = "visible";
     startQuizButton.style.visibility = "hidden";
     startQuizButton.className = "btn btn-light start-button";
     genQuestion.style.visibility ="visible";
@@ -106,10 +142,11 @@ function timerFunction() {
         timerEl.textContent = "Seconds Remaining:  " + timeLeft;
         if (timeLeft === 0 || Math.sign(timeLeft) == -1) {
             timerEl.textContent = "Seconds Remaining:  "+ "0";
+            writeStats();
             startQuizButton.textContent = 'RESET';
             clearInterval(timerInterval);
             startQuizButton.disabled = false;
-            startQuizButton.style.visibility = "visible"
+            startQuizButton.style.visibility = "visible";
             this.startQuizButton.addEventListener('click', function(event) {
                 timerInterval;
             })
@@ -143,10 +180,9 @@ function assignAnswers() {
             buttonAssignment.textContent = answerAssignment;
        };    
     } 
-    for(var i = 0;i<4;i++){
-        console.log(questionAnswers[genQuestion.textContent]);
-        // console.log(answerBtn_i);
-    }
+    // for(var i = 0;i<4;i++){
+    //     console.log(questionAnswers[genQuestion.textContent]);
+    // }
     
 };
 // Check the answer when a user clicks a button
